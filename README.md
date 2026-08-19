@@ -3,7 +3,7 @@
 > **ResolveAI turns complex e-commerce disputes into evidence-backed, multi-party stories — automatically investigated, explained, and resolved by specialized AI agents.**
 > Designed with **Meesho's brand identity** (Jamuni & Aam palette) and built for scale across high-volume marketplace networks.
 
-🔗 **Live Production Demo**: [https://meesho-eta-three.vercel.app/](https://meesho-eta-three.vercel.app/)  
+🔗 **Live Production Demo**: [https://resolveai-ops.vercel.app/]
 💻 **GitHub Repository**: [https://github.com/SakshiMalhotra18/Meesho](https://github.com/SakshiMalhotra18/Meesho)
 
 ---
