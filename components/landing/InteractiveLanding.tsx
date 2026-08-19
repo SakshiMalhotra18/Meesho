@@ -262,8 +262,12 @@ export default function InteractiveLanding() {
           alignItems: 'center',
           textAlign: 'center',
           padding: '130px 24px 30px',
+          position: 'relative',
         }}
       >
+        {/* Subtle ambient Jamuni glow in the background */}
+        <div style={{ position: 'absolute', top: '10%', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '400px', borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(159,43,104,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -271,13 +275,15 @@ export default function InteractiveLanding() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            background: '#FCE9F1',
-            color: '#D83A73',
-            padding: '6px 16px',
+            background: 'linear-gradient(135deg, #FCE9F1, #FFF4E5)',
+            color: '#9F2B68',
+            padding: '6px 18px',
             borderRadius: '9999px',
             fontSize: '0.8125rem',
             fontWeight: 700,
             marginBottom: '20px',
+            border: '1px solid rgba(159,43,104,0.2)',
+            boxShadow: '0 2px 12px rgba(159,43,104,0.12)',
           }}
         >
           <Sparkles size={14} /> Autonomous Marketplace Operations
@@ -297,7 +303,7 @@ export default function InteractiveLanding() {
             margin: '0 auto 20px',
           }}
         >
-          What happened to <span style={{ color: '#D83A73', fontStyle: 'italic' }}>this package</span>?
+          What happened to <span style={{ color: '#9F2B68', fontStyle: 'italic' }}>this package</span>?
         </motion.h1>
 
         <motion.p
@@ -309,7 +315,7 @@ export default function InteractiveLanding() {
           One order. Three stories. Five AI agents. Reconstructing the ground truth behind e-commerce disputes.
         </motion.p>
 
-        {/* Visual 3-Party Story Card */}
+        {/* Visual 3-Party Story Card — Jamuni gradient border */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -319,31 +325,31 @@ export default function InteractiveLanding() {
             width: '100%',
             maxWidth: '780px',
             background: 'white',
-            border: '1px solid rgba(24, 24, 23, 0.12)',
+            border: '1.5px solid rgba(159, 43, 104, 0.18)',
             borderRadius: '24px',
-            boxShadow: '0 12px 40px rgba(24, 24, 23, 0.08)',
+            boxShadow: '0 12px 40px rgba(159, 43, 104, 0.1)',
             padding: '24px',
             margin: '0 auto 24px',
           }}
         >
           <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1.2fr auto 1fr', gap: '16px', alignItems: 'center' }}>
-            <div style={{ textAlign: 'center', padding: '12px', background: '#F7F6F2', borderRadius: '16px' }}>
+            <div style={{ textAlign: 'center', padding: '14px', background: 'linear-gradient(135deg, #F9F5FA, #F5F3FF)', borderRadius: '16px', border: '1px solid rgba(159,43,104,0.08)' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '4px' }}>📦</div>
               <div style={{ fontWeight: 700, fontSize: '0.875rem' }}>Rakesh (Seller)</div>
               <div style={{ fontSize: '0.75rem', color: '#20A176', fontWeight: 600 }}>Surat • 642g Sealed</div>
             </div>
 
-            <div style={{ color: '#9F2B68', fontWeight: 'bold', fontSize: '1.25rem' }}>➔</div>
+            <div style={{ color: '#9F2B68', fontWeight: 'bold', fontSize: '1.5rem' }}>➔</div>
 
-            <div style={{ textAlign: 'center', padding: '12px', background: '#FEF4E5', border: '1px solid #F2A63B', borderRadius: '16px' }}>
+            <div style={{ textAlign: 'center', padding: '14px', background: 'linear-gradient(135deg, #4A0D36, #FF9900)', borderRadius: '16px', boxShadow: '0 8px 20px rgba(159,43,104,0.25)' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '4px' }}>🛵</div>
-              <div style={{ fontWeight: 700, fontSize: '0.875rem', color: '#D4861C' }}>Imran (Transit Rider)</div>
-              <div style={{ fontSize: '0.75rem', color: '#D94B52', fontWeight: 700 }}>Jaipur Hub (-131g)</div>
+              <div style={{ fontWeight: 700, fontSize: '0.875rem', color: 'white' }}>Imran (Transit Rider)</div>
+              <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.85)', fontWeight: 700 }}>Jaipur Hub (-131g)</div>
             </div>
 
-            <div style={{ color: '#9F2B68', fontWeight: 'bold', fontSize: '1.25rem' }}>➔</div>
+            <div style={{ color: '#9F2B68', fontWeight: 'bold', fontSize: '1.5rem' }}>➔</div>
 
-            <div style={{ textAlign: 'center', padding: '12px', background: '#F7F6F2', borderRadius: '16px' }}>
+            <div style={{ textAlign: 'center', padding: '14px', background: 'linear-gradient(135deg, #F9F5FA, #F5F3FF)', borderRadius: '16px', border: '1px solid rgba(159,43,104,0.08)' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '4px' }}>🛍️</div>
               <div style={{ fontWeight: 700, fontSize: '0.875rem' }}>Ananya (Customer)</div>
               <div style={{ fontSize: '0.75rem', color: '#D94B52', fontWeight: 600 }}>Delhi • Claim ₹1,299</div>
@@ -642,31 +648,45 @@ export default function InteractiveLanding() {
         </div>
       </section>
 
-      {/* FINAL RESOLUTION CTA */}
-      <section style={{ padding: '80px 24px 100px', background: 'white', borderTop: '1px solid rgba(24,24,23,0.1)', textAlign: 'center' }}>
-        <div style={{ maxWidth: '650px', margin: '0 auto' }}>
+      {/* FINAL RESOLUTION CTA — Jamuni → Aam Gradient */}
+      <section
+        style={{
+          padding: '80px 24px 100px',
+          background: 'linear-gradient(135deg, #4A0D36 0%, #7A184D 50%, #FF9900 130%)',
+          textAlign: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Ambient orbs */}
+        <div style={{ position: 'absolute', top: '-80px', right: '-60px', width: '350px', height: '350px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,153,0,0.4) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '-80px', left: '-60px', width: '350px', height: '350px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(118,87,246,0.25) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+        <div style={{ maxWidth: '650px', margin: '0 auto', position: 'relative' }}>
           <div
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              background: '#E6F7F2',
-              color: '#178564',
-              padding: '6px 16px',
+              background: 'rgba(255,255,255,0.2)',
+              backdropFilter: 'blur(8px)',
+              color: 'white',
+              padding: '6px 18px',
               borderRadius: '9999px',
               fontSize: '0.8125rem',
               fontWeight: 700,
               marginBottom: '20px',
+              border: '1px solid rgba(255,255,255,0.3)',
             }}
           >
             <CheckCircle2 size={16} /> Case MR-39281 Resolution Delivered
           </div>
 
-          <h2 style={{ fontFamily: 'var(--font-fraunces), Georgia, serif', fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 400, marginBottom: '16px' }}>
+          <h2 style={{ fontFamily: 'var(--font-fraunces), Georgia, serif', fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 400, marginBottom: '16px', color: 'white', lineHeight: 1.1 }}>
             94% Confidence Resolution
           </h2>
 
-          <p style={{ fontSize: '1.0625rem', color: '#6D6964', marginBottom: '36px', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '1.0625rem', color: 'rgba(255,255,255,0.85)', marginBottom: '36px', lineHeight: 1.6 }}>
             Customer Ananya refunded (₹1,299) • Seller Rakesh payout protected • Jaipur Hub segment flagged for investigation.
           </p>
 
@@ -675,17 +695,17 @@ export default function InteractiveLanding() {
               href="/cases/MR-39281"
               className="btn"
               style={{
-                background: '#9F2B68',
-                color: 'white',
+                background: 'white',
+                color: '#9F2B68',
                 borderRadius: '9999px',
                 padding: '14px 32px',
                 fontSize: '1rem',
-                fontWeight: 600,
+                fontWeight: 700,
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                boxShadow: '0 8px 24px rgba(159, 43, 104,0.35)',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
               }}
             >
               Inspect Case MR-39281 <ArrowRight size={16} />
@@ -694,9 +714,10 @@ export default function InteractiveLanding() {
               href="/control-tower"
               className="btn"
               style={{
-                background: 'transparent',
-                color: '#181817',
-                border: '1px solid rgba(24,24,23,0.2)',
+                background: 'rgba(255,255,255,0.15)',
+                backdropFilter: 'blur(8px)',
+                color: 'white',
+                border: '1px solid rgba(255,255,255,0.35)',
                 borderRadius: '9999px',
                 padding: '14px 32px',
                 fontSize: '1rem',
@@ -711,7 +732,7 @@ export default function InteractiveLanding() {
       </section>
 
       {/* Footer */}
-      <footer style={{ padding: '32px 24px', textAlign: 'center', fontSize: '0.8125rem', color: '#9E9990', borderTop: '1px solid rgba(24,24,23,0.1)' }}>
+      <footer style={{ padding: '32px 24px', textAlign: 'center', fontSize: '0.8125rem', color: '#9E9990', borderTop: '1px solid rgba(24,24,23,0.1)', background: 'white' }}>
         ResolveAI — Independent concept prototype built with synthetic marketplace data. Not affiliated with Meesho.
       </footer>
     </div>

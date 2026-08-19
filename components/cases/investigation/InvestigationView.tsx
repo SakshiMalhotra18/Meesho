@@ -47,9 +47,9 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
             alignItems: 'center',
             gap: '6px',
             fontSize: '0.8125rem',
-            color: 'var(--color-text-secondary)',
+            color: 'var(--color-jamuni)',
             textDecoration: 'none',
-            fontWeight: 500,
+            fontWeight: 600,
           }}
         >
           <ArrowLeft size={14} /> Back to case queue
@@ -63,48 +63,64 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
         </div>
       </div>
 
-      {/* Case Overview Header Card */}
+      {/* Case Overview Header Card — Rich Jamuni → Aam Gradient */}
       <div
-        className="card"
         style={{
-          padding: '24px',
-          background: 'linear-gradient(135deg, #FFFFFF 0%, #F9F8F6 100%)',
-          border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-xl)',
-          boxShadow: 'var(--shadow-sm)',
+          padding: '28px',
+          background: 'linear-gradient(135deg, #4A0D36 0%, #7A184D 50%, #FF9900 130%)',
+          border: 'none',
+          borderRadius: '24px',
+          boxShadow: '0 12px 32px rgba(159, 43, 104, 0.3)',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '20px' }}>
+        {/* Ambient glow orbs */}
+        <div style={{ position: 'absolute', top: '-60px', right: '-40px', width: '250px', height: '250px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,153,0,0.4) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '-80px', left: '30%', width: '200px', height: '200px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '20px', position: 'relative' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-              <h1 style={{ fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--color-text-primary)' }}>
+              <h1 style={{ fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.02em', color: 'white' }}>
                 Case {caseData.id}
               </h1>
-              <span className={`badge ${caseData.autonomyTier === 'green' ? 'badge-green' : caseData.autonomyTier === 'amber' ? 'badge-amber' : 'badge-red'}`}>
+              <span
+                style={{
+                  fontSize: '0.6875rem',
+                  fontWeight: 700,
+                  padding: '3px 10px',
+                  borderRadius: '9999px',
+                  background: caseData.autonomyTier === 'red' ? 'rgba(217,75,82,0.8)' : caseData.autonomyTier === 'amber' ? 'rgba(255,153,0,0.8)' : 'rgba(32,161,118,0.8)',
+                  color: 'white',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.03em',
+                }}
+              >
                 {caseData.autonomyTier} tier • Human Approval Required
               </span>
-              <span className="badge badge-ai">
+              <span style={{ fontSize: '0.6875rem', fontWeight: 700, padding: '3px 10px', borderRadius: '9999px', background: 'rgba(255,255,255,0.2)', color: 'white', textTransform: 'uppercase' }}>
                 Claim: {caseData.claimType.replace('_', ' ')}
               </span>
             </div>
 
-            <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9375rem', marginTop: '8px', maxWidth: '750px', lineHeight: 1.5 }}>
+            <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.9375rem', marginTop: '8px', maxWidth: '650px', lineHeight: 1.5 }}>
               &quot;{caseData.claimDescription}&quot;
             </p>
           </div>
 
           {/* Key Metric Indicators */}
-          <div style={{ display: 'flex', gap: '16px', background: 'var(--color-surface)', padding: '14px 20px', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-xs)' }}>
+          <div style={{ display: 'flex', gap: '24px', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(12px)', padding: '16px 24px', border: '1px solid rgba(255,255,255,0.25)', borderRadius: '16px' }}>
             <div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--color-text-tertiary)', textTransform: 'uppercase', fontWeight: 700 }}>Order Amount</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text-primary)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', fontWeight: 700 }}>Order Amount</div>
+              <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'white', marginTop: '2px' }}>
                 ₹{caseData.amount.toLocaleString('en-IN')}
               </div>
             </div>
-            <div style={{ width: '1px', background: 'var(--color-border)' }} />
+            <div style={{ width: '1px', background: 'rgba(255,255,255,0.2)' }} />
             <div>
-              <div style={{ fontSize: '0.6875rem', color: 'var(--color-text-tertiary)', textTransform: 'uppercase', fontWeight: 700 }}>AI Confidence</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-jamuni)', marginTop: '2px' }}>
+              <div style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', fontWeight: 700 }}>AI Confidence</div>
+              <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#FF9900', marginTop: '2px' }}>
                 {Math.round((caseData.confidence || 0) * 100)}%
               </div>
             </div>
