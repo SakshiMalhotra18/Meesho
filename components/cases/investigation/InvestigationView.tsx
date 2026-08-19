@@ -199,18 +199,23 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
             className="card"
             style={{
               padding: '24px',
-              background: 'linear-gradient(135deg, #181817 0%, #1e1b2e 100%)',
+              background: 'linear-gradient(135deg, #4A0D36 0%, #7A184D 55%, #C4550A 100%)',
               color: 'white',
               borderRadius: 'var(--radius-xl)',
-              boxShadow: '0 12px 32px rgba(0,0,0,0.2)',
+              boxShadow: '0 12px 32px rgba(159, 43, 104, 0.35)',
+              position: 'relative',
+              overflow: 'hidden',
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            {/* Subtle ambient orb */}
+            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '200px', height: '200px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,153,0,0.3) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', position: 'relative' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="badge badge-ai" style={{ background: '#9F2B68', color: 'white' }}>
+                <span style={{ background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)', color: 'white', fontSize: '0.6875rem', fontWeight: 700, padding: '3px 10px', borderRadius: '9999px', border: '1px solid rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                   Stage Inspector
                 </span>
-                <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.7)', fontWeight: 600 }}>
+                <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.8)', fontWeight: 600 }}>
                   {selectedEvent.hub} • {selectedEvent.eventType.replace('_', ' ')}
                 </span>
               </div>
@@ -218,8 +223,8 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
             </div>
 
             {/* Visual Box Rendering */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', alignItems: 'center' }}>
-              <div style={{ textAlign: 'center', padding: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', alignItems: 'center', position: 'relative' }}>
+              <div style={{ textAlign: 'center', padding: '20px', background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.2)' }}>
                 <motion.div
                   key={selectedEvent.id}
                   initial={{ scale: 0.8, rotate: -5 }}
@@ -229,22 +234,22 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
                   📦
                 </motion.div>
                 <div style={{ fontWeight: 700, fontSize: '0.9375rem' }}>{caseData.product.name}</div>
-                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)', marginTop: '4px' }}>
+                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)', marginTop: '4px' }}>
                   Expected Standard: {caseData.product.expectedWeightGrams} g
                 </div>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <div style={{ padding: '12px', background: 'rgba(255,255,255,0.08)', borderRadius: '12px' }}>
-                  <div style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.6)' }}>Scan Weight at {selectedEvent.hub}</div>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 800, color: selectedEvent.anomaly ? '#D94B52' : '#20A176' }}>
+                <div style={{ padding: '12px', background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.15)' }}>
+                  <div style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.7)' }}>Scan Weight at {selectedEvent.hub}</div>
+                  <div style={{ fontSize: '1.25rem', fontWeight: 800, color: selectedEvent.anomaly ? '#FF6B6B' : '#5BFFA3' }}>
                     {selectedEvent.weightGrams ? `${selectedEvent.weightGrams} g` : 'N/A'}
                   </div>
                 </div>
 
-                <div style={{ padding: '12px', background: selectedEvent.anomaly ? 'rgba(217,75,82,0.2)' : 'rgba(255,255,255,0.08)', borderRadius: '12px', border: selectedEvent.anomaly ? '1px solid #D94B52' : 'none' }}>
-                  <div style={{ fontSize: '0.6875rem', color: selectedEvent.anomaly ? '#FCE9EA' : 'rgba(255,255,255,0.6)' }}>Weight Variance Delta</div>
-                  <div style={{ fontSize: '1.125rem', fontWeight: 800, color: selectedEvent.anomaly ? '#D94B52' : 'white' }}>
+                <div style={{ padding: '12px', background: selectedEvent.anomaly ? 'rgba(217,75,82,0.3)' : 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', borderRadius: '12px', border: selectedEvent.anomaly ? '1px solid rgba(255,107,107,0.6)' : '1px solid rgba(255,255,255,0.15)' }}>
+                  <div style={{ fontSize: '0.6875rem', color: selectedEvent.anomaly ? 'rgba(255,200,200,0.9)' : 'rgba(255,255,255,0.7)' }}>Weight Variance Delta</div>
+                  <div style={{ fontSize: '1.125rem', fontWeight: 800, color: selectedEvent.anomaly ? '#FF6B6B' : '#5BFFA3' }}>
                     {selectedEvent.anomaly ? '-131 g (CRITICAL DROP)' : '0 g (NORMAL)'}
                   </div>
                 </div>

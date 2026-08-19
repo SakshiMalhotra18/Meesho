@@ -406,12 +406,13 @@ export default function InteractiveLanding() {
               style={{
                 position: 'relative',
                 height: '380px',
-                background: 'linear-gradient(135deg, #181817 0%, #1e1b2e 100%)',
+                background: 'linear-gradient(160deg, #F0E8F5 0%, #E8F4FD 40%, #F5F0E8 100%)',
                 borderRadius: '20px',
                 overflow: 'hidden',
                 padding: '24px',
                 cursor: 'crosshair',
-                boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.5)',
+                border: '1.5px solid rgba(159,43,104,0.15)',
+                boxShadow: '0 8px 24px rgba(159,43,104,0.12)',
               }}
             >
               {/* Mouse hover instruction badge */}
@@ -420,13 +421,14 @@ export default function InteractiveLanding() {
                   position: 'absolute',
                   top: '12px',
                   left: '12px',
-                  background: 'rgba(255,255,255,0.15)',
+                  background: 'rgba(159,43,104,0.12)',
                   backdropFilter: 'blur(8px)',
-                  color: 'white',
+                  color: '#7A184D',
+                  border: '1px solid rgba(159,43,104,0.25)',
                   padding: '4px 12px',
                   borderRadius: '9999px',
                   fontSize: '0.75rem',
-                  fontWeight: 600,
+                  fontWeight: 700,
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
@@ -436,14 +438,25 @@ export default function InteractiveLanding() {
                 <MousePointer size={13} /> Hover mouse across map to steer scooter 🛵
               </div>
 
-              {/* Background Grid Pattern */}
+              {/* India map silhouette SVG — decorative background */}
+              <svg
+                viewBox="0 0 500 520"
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.06 }}
+                preserveAspectRatio="xMidYMid meet"
+              >
+                <path
+                  fill="#9F2B68"
+                  d="M250,20 C220,25 180,40 160,70 C140,100 145,130 130,155 C115,180 85,190 75,215 C65,240 80,265 70,290 C60,315 35,330 40,360 C45,390 75,405 90,430 C105,455 100,485 120,505 C140,520 165,510 185,500 C205,490 220,470 240,465 C260,460 280,470 300,475 C320,480 340,475 355,460 C370,445 365,420 375,400 C385,380 410,370 415,345 C420,320 400,300 395,275 C390,250 405,230 400,205 C395,180 375,165 360,145 C345,125 345,100 325,80 C305,60 275,15 250,20 Z"
+                />
+              </svg>
+
+              {/* Background Grid Pattern — light dots */}
               <div
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  backgroundImage: 'radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px)',
+                  backgroundImage: 'radial-gradient(rgba(159,43,104,0.15) 1px, transparent 1px)',
                   backgroundSize: '24px 24px',
-                  opacity: 0.8,
                 }}
               />
 
@@ -452,7 +465,7 @@ export default function InteractiveLanding() {
                 <path
                   d="M 120 160 Q 380 70, 650 220 T 880 140"
                   fill="none"
-                  stroke="rgba(255,255,255,0.2)"
+                  stroke="rgba(159,43,104,0.2)"
                   strokeWidth="4"
                   strokeDasharray="8 8"
                 />
@@ -479,14 +492,14 @@ export default function InteractiveLanding() {
               >
                 <div
                   style={{
-                    background: '#9F2B68',
+                    background: 'linear-gradient(135deg, #9F2B68, #FF9900)',
                     color: 'white',
                     borderRadius: '9999px',
                     padding: '8px 14px',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
-                    boxShadow: '0 0 24px rgba(159, 43, 104,0.9)',
+                    boxShadow: '0 0 24px rgba(159, 43, 104,0.6)',
                     border: '2px solid white',
                   }}
                 >
@@ -535,13 +548,13 @@ export default function InteractiveLanding() {
                         width: isSelected ? '44px' : '34px',
                         height: isSelected ? '44px' : '34px',
                         borderRadius: '50%',
-                        background: hub.status === 'anomaly' ? '#D94B52' : hub.status === 'dispatch' ? '#20A176' : '#FFFFFF',
-                        border: `3px solid ${isSelected ? '#9F2B68' : hub.status === 'anomaly' ? '#D94B52' : '#FFFFFF'}`,
+                        background: hub.status === 'anomaly' ? '#D94B52' : hub.status === 'dispatch' ? '#20A176' : 'white',
+                        border: `3px solid ${isSelected ? '#9F2B68' : hub.status === 'anomaly' ? '#D94B52' : 'rgba(159,43,104,0.4)'}`,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: hub.status === 'anomaly' || hub.status === 'dispatch' ? 'white' : '#181817',
-                        boxShadow: isSelected ? '0 0 20px #7657F6' : '0 4px 12px rgba(0,0,0,0.3)',
+                        color: hub.status === 'anomaly' || hub.status === 'dispatch' ? 'white' : '#9F2B68',
+                        boxShadow: isSelected ? '0 0 20px rgba(159,43,104,0.5)' : '0 4px 12px rgba(159,43,104,0.2)',
                         transition: 'all 0.2s ease',
                       }}
                     >
@@ -553,8 +566,8 @@ export default function InteractiveLanding() {
                         marginTop: '8px',
                         fontSize: '0.75rem',
                         fontWeight: 700,
-                        color: isSelected ? '#FFFFFF' : 'rgba(255,255,255,0.8)',
-                        background: isSelected ? '#9F2B68' : 'rgba(0,0,0,0.6)',
+                        color: isSelected ? 'white' : '#4A0D36',
+                        background: isSelected ? '#9F2B68' : 'rgba(255,255,255,0.85)',
                         padding: '3px 10px',
                         borderRadius: '6px',
                         whiteSpace: 'nowrap',
