@@ -37,7 +37,7 @@ export default function CaseQueueView() {
               onClick={() => setFilter(t)}
               className="btn btn-sm"
               style={{
-                background: filter === t ? '#181817' : '#FFFFFF',
+                background: filter === t ? '#9F2B68' : '#FFFFFF',
                 color: filter === t ? '#FFFFFF' : '#6D6964',
                 border: '1px solid rgba(24,24,23,0.12)',
                 borderRadius: '9999px',
@@ -70,7 +70,7 @@ export default function CaseQueueView() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search ID or customer..."
-            style={{ border: 'none', outline: 'none', background: 'transparent', fontSize: '0.875rem', color: '#181817' }}
+            style={{ border: 'none', outline: 'none', background: 'transparent', fontSize: '0.875rem', color: '#9F2B68' }}
           />
         </div>
       </div>
@@ -80,25 +80,25 @@ export default function CaseQueueView() {
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem' }}>
           <thead>
             <tr style={{ background: '#F7F6F2', borderBottom: '1px solid rgba(24,24,23,0.1)' }}>
-              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#181817', background: 'transparent' }}>Case ID</th>
-              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#181817', background: 'transparent' }}>Claim</th>
-              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#181817', background: 'transparent' }}>Customer</th>
-              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#181817', background: 'transparent' }}>Seller</th>
-              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#181817', background: 'transparent' }}>Amount</th>
-              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#181817', background: 'transparent' }}>Confidence</th>
-              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#181817', background: 'transparent' }}>Tier</th>
-              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#181817', background: 'transparent' }}>Action</th>
+              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#9F2B68', background: 'transparent' }}>Case ID</th>
+              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#9F2B68', background: 'transparent' }}>Claim</th>
+              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#9F2B68', background: 'transparent' }}>Customer</th>
+              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#9F2B68', background: 'transparent' }}>Seller</th>
+              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#9F2B68', background: 'transparent' }}>Amount</th>
+              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#9F2B68', background: 'transparent' }}>Confidence</th>
+              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#9F2B68', background: 'transparent' }}>Tier</th>
+              <th style={{ padding: '14px 18px', fontWeight: 700, color: '#9F2B68', background: 'transparent' }}>Action</th>
             </tr>
           </thead>
           <tbody>
             {filteredCases.map(c => (
               <tr key={c.id} style={{ borderBottom: '1px solid rgba(24,24,23,0.06)', background: '#FFFFFF' }}>
-                <td style={{ padding: '16px 18px', fontWeight: 700, color: '#181817' }}>{c.id}</td>
+                <td style={{ padding: '16px 18px', fontWeight: 700, color: '#9F2B68' }}>{c.id}</td>
                 <td style={{ padding: '16px 18px', textTransform: 'capitalize', color: '#6D6964' }}>{c.claimType.replace('_', ' ')}</td>
-                <td style={{ padding: '16px 18px', color: '#181817', fontWeight: 500 }}>{c.customer.name}</td>
+                <td style={{ padding: '16px 18px', color: '#9F2B68', fontWeight: 500 }}>{c.customer.name}</td>
                 <td style={{ padding: '16px 18px', color: '#6D6964' }}>{c.seller.name}</td>
-                <td style={{ padding: '16px 18px', fontWeight: 700, color: '#181817' }}>₹{c.amount.toLocaleString('en-IN')}</td>
-                <td style={{ padding: '16px 18px', color: '#7657F6', fontWeight: 700 }}>{Math.round((c.confidence || 0) * 100)}%</td>
+                <td style={{ padding: '16px 18px', fontWeight: 700, color: '#9F2B68' }}>₹{c.amount.toLocaleString('en-IN')}</td>
+                <td style={{ padding: '16px 18px', color: '#9F2B68', fontWeight: 700 }}>{Math.round((c.confidence || 0) * 100)}%</td>
                 <td style={{ padding: '16px 18px' }}>
                   <span className={`badge ${c.autonomyTier === 'green' ? 'badge-green' : c.autonomyTier === 'amber' ? 'badge-amber' : 'badge-red'}`}>
                     {c.autonomyTier}
@@ -117,3 +117,4 @@ export default function CaseQueueView() {
     </div>
   );
 }
+

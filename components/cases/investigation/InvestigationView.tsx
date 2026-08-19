@@ -104,7 +104,7 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
             <div style={{ width: '1px', background: 'var(--color-border)' }} />
             <div>
               <div style={{ fontSize: '0.6875rem', color: 'var(--color-text-tertiary)', textTransform: 'uppercase', fontWeight: 700 }}>AI Confidence</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-ai)', marginTop: '2px' }}>
+              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-jamuni)', marginTop: '2px' }}>
                 {Math.round((caseData.confidence || 0) * 100)}%
               </div>
             </div>
@@ -120,7 +120,7 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
             <h3 style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--color-text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Parcel Telemetry Stages
             </h3>
-            <span style={{ fontSize: '0.6875rem', color: 'var(--color-ai)', fontWeight: 600 }}>Click Stage</span>
+            <span style={{ fontSize: '0.6875rem', color: 'var(--color-jamuni)', fontWeight: 600 }}>Click Stage</span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -133,12 +133,12 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
                   style={{
                     padding: '12px',
                     borderRadius: 'var(--radius-md)',
-                    border: `1.5px solid ${isSelected ? 'var(--color-ai)' : evt.anomaly ? 'var(--color-danger)' : 'var(--color-border)'}`,
+                    border: `1.5px solid ${isSelected ? 'var(--color-jamuni)' : evt.anomaly ? 'var(--color-danger)' : 'var(--color-border)'}`,
                     background: evt.anomaly ? 'var(--color-danger-light)' : isSelected ? 'var(--color-ai-light)' : 'var(--color-surface)',
                     cursor: 'pointer',
                     textAlign: 'left',
                     transition: 'all 0.2s ease',
-                    boxShadow: isSelected ? '0 4px 12px rgba(118,87,246,0.15)' : 'none',
+                    boxShadow: isSelected ? '0 4px 12px rgba(159, 43, 104,0.15)' : 'none',
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -191,7 +191,7 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="badge badge-ai" style={{ background: '#7657F6', color: 'white' }}>
+                <span className="badge badge-ai" style={{ background: '#9F2B68', color: 'white' }}>
                   Stage Inspector
                 </span>
                 <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.7)', fontWeight: 600 }}>
@@ -267,7 +267,7 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
                   <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginTop: '4px', lineHeight: 1.4 }}>
                     {ev.description}
                   </p>
-                  <div style={{ marginTop: '8px', fontSize: '0.6875rem', color: 'var(--color-ai)', fontWeight: 600 }}>
+                  <div style={{ marginTop: '8px', fontSize: '0.6875rem', color: 'var(--color-jamuni)', fontWeight: 600 }}>
                     Relevance Score: {Math.round((ev.relevanceScore || 0.9) * 100)}%
                   </div>
                 </div>
@@ -320,13 +320,13 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
           {/* Agent Findings Stream */}
           <div className="card" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-              <Sparkles size={16} color="var(--color-ai)" />
+              <Sparkles size={16} color="var(--color-jamuni)" />
               <h3 style={{ fontSize: '0.9375rem', fontWeight: 700 }}>Agent Findings</h3>
             </div>
 
             {caseData.agentFindings.map(f => (
               <div key={f.agentName} style={{ padding: '12px', background: 'var(--color-canvas)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
-                <div style={{ fontWeight: 700, fontSize: '0.8125rem', color: 'var(--color-ai)' }}>
+                <div style={{ fontWeight: 700, fontSize: '0.8125rem', color: 'var(--color-jamuni)' }}>
                   {f.agentDisplayName}
                 </div>
                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginTop: '4px', lineHeight: 1.4 }}>
@@ -346,7 +346,7 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
           bottom: '20px',
           padding: '16px 24px',
           background: 'white',
-          border: '2px solid var(--color-ai)',
+          border: '2px solid var(--color-jamuni)',
           boxShadow: 'var(--shadow-xl)',
           display: 'flex',
           justifyContent: 'space-between',
@@ -356,7 +356,7 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
         }}
       >
         <div>
-          <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-ai)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+          <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-jamuni)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
             AI Proposed Resolution • Policy P-014 Matched ({Math.round((caseData.confidence || 0.94) * 100)}% Confidence)
           </div>
           <div style={{ fontWeight: 700, fontSize: '1rem', marginTop: '2px', color: 'var(--color-text-primary)' }}>
@@ -414,3 +414,4 @@ export default function InvestigationView({ caseId }: { caseId: string }) {
     </div>
   );
 }
+

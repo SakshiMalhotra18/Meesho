@@ -38,9 +38,9 @@ const AGENTS_LIST: AgentInfo[] = [
     name: 'Mira',
     avatar: '🔮',
     role: 'Supervisor & Orchestrator Agent',
-    color: '#9E7AFF',
-    lightColor: 'rgba(158, 122, 255, 0.12)',
-    glowColor: 'rgba(158, 122, 255, 0.35)',
+    color: '#FF9900', // Aam Gold
+    lightColor: 'rgba(255, 153, 0, 0.15)',
+    glowColor: 'rgba(255, 153, 0, 0.4)',
     tagline: 'Orchestrates multi-agent graph & human review triggers',
     desc: 'Coordinates the investigation flow, triggers sub-agents in parallel, computes aggregate confidence scores, and determines if a dispute requires human analyst sign-off.',
     tools: ['orchestrateGraph()', 'evaluateAutonomyTier()', 'triggerHumanEscalation()', 'synthesizeAuditLog()'],
@@ -54,8 +54,8 @@ const AGENTS_LIST: AgentInfo[] = [
     avatar: '🔍',
     role: 'Product & Evidence Specialist',
     color: '#20A176',
-    lightColor: 'rgba(32, 161, 118, 0.12)',
-    glowColor: 'rgba(32, 161, 118, 0.35)',
+    lightColor: 'rgba(32, 161, 118, 0.15)',
+    glowColor: 'rgba(32, 161, 118, 0.4)',
     tagline: 'Analyzes photo evidence, fabric weaves & SKU matching',
     desc: 'Examines dispatch photos vs return photographs using computer vision heuristics. Verifies serial numbers, fabric patterns, outer box tape condition, and seal authenticity.',
     tools: ['compareProductImages()', 'verifyDispatchSeal()', 'extractLabelData()', 'detectPackagingTampering()'],
@@ -69,8 +69,8 @@ const AGENTS_LIST: AgentInfo[] = [
     avatar: '🚚',
     role: 'Logistics Telemetry Analyst',
     color: '#4D78FF',
-    lightColor: 'rgba(77, 120, 255, 0.12)',
-    glowColor: 'rgba(77, 120, 255, 0.35)',
+    lightColor: 'rgba(77, 120, 255, 0.15)',
+    glowColor: 'rgba(77, 120, 255, 0.4)',
     tagline: 'Reconstructs hub-by-hub package weight history & route anomalies',
     desc: 'Analyzes package scale telemetry across origin, transit hubs, and destination delivery stations. Detects weight drops, scanner operator anomalies, and hub tamper rates.',
     tools: ['getHubScans()', 'calculateWeightDelta()', 'getHubAnomalyRate()', 'verifyOTPLog()'],
@@ -83,9 +83,9 @@ const AGENTS_LIST: AgentInfo[] = [
     name: 'Kavach',
     avatar: '🛡️',
     role: 'Fraud & Risk Evaluator',
-    color: '#F2A63B',
-    lightColor: 'rgba(242, 166, 59, 0.12)',
-    glowColor: 'rgba(242, 166, 59, 0.35)',
+    color: '#FF9900', // Aam Gold
+    lightColor: 'rgba(255, 153, 0, 0.15)',
+    glowColor: 'rgba(255, 153, 0, 0.4)',
     tagline: 'Evaluates customer, seller, and logistics segment risk scores',
     desc: 'Computes historical buyer return frequency, seller rating and tenure, and logistics segment dispute history to construct a multi-party risk matrix.',
     tools: ['getCustomerFraudFlags()', 'getSellerDisputeRate()', 'calculateRiskMatrix()', 'detectSyndicateFraud()'],
@@ -99,8 +99,8 @@ const AGENTS_LIST: AgentInfo[] = [
     avatar: '📜',
     role: 'Deterministic Policy Engine',
     color: '#D94B52',
-    lightColor: 'rgba(217, 75, 82, 0.12)',
-    glowColor: 'rgba(217, 75, 82, 0.35)',
+    lightColor: 'rgba(217, 75, 82, 0.15)',
+    glowColor: 'rgba(217, 75, 82, 0.4)',
     tagline: 'Applies explicit marketplace policy rules without LLM hallucination',
     desc: 'Retrieves and matches dispute conditions against structured policy rules (P-001 through P-020). Guarantees exact policy adherence for customer refund and seller protection.',
     tools: ['matchPolicyRules()', 'getPolicyActions()', 'verifyValueCaps()', 'getEscalationCriteria()'],
@@ -114,8 +114,8 @@ const AGENTS_LIST: AgentInfo[] = [
     avatar: '⚖️',
     role: 'Final Resolution Synthesizer',
     color: '#9E7AFF',
-    lightColor: 'rgba(158, 122, 255, 0.12)',
-    glowColor: 'rgba(158, 122, 255, 0.35)',
+    lightColor: 'rgba(158, 122, 255, 0.15)',
+    glowColor: 'rgba(158, 122, 255, 0.4)',
     tagline: 'Assembles agent findings into confidence-scored resolution',
     desc: 'Synthesizes all agent outputs, verifies policy compliance, formulates customer refund/rejection decisions, seller payout protection, and outputs structured audit trails.',
     tools: ['proposeResolution()', 'calculateConfidenceScore()', 'generateAuditTrail()', 'formatExecutiveSummary()'],
@@ -139,11 +139,11 @@ export default function AgentsView() {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-ai)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-            Agent Control Room & Deep Inspection
+          <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-jamuni)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            Meesho Dispute Intelligence • Jamuni & Aam Brand Theme
           </div>
           <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--color-text-primary)', margin: '4px 0 0' }}>
-            Multi-Agent Architecture
+            Agent Control Room
           </h1>
           <p style={{ fontSize: '0.9375rem', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
             Hover directly over any agent card below to greet them 👋 and expand their active system tools & live reasoning logs.
@@ -152,53 +152,52 @@ export default function AgentsView() {
 
         <button
           onClick={handleReplay}
-          className="btn btn-ai"
+          className="btn btn-primary"
           disabled={replaying}
           style={{
             padding: '10px 24px',
             borderRadius: '9999px',
             fontWeight: 700,
-            boxShadow: '0 8px 24px rgba(118,87,246,0.35)',
           }}
         >
           <Play size={16} /> {replaying ? 'Executing Multi-Agent Graph...' : 'Replay Graph Execution'}
         </button>
       </div>
 
-      {/* Ambient Purple Gradient Canvas Container */}
+      {/* Vibrant Jamuni + Aam Gradient Mesh Canvas Container */}
       <div
         style={{
           position: 'relative',
-          background: 'linear-gradient(135deg, #0b0914 0%, #161224 50%, #0d0a17 100%)',
+          background: 'linear-gradient(135deg, #4A0D36 0%, #7A184D 45%, #9F2B68 75%, #D47E00 100%)',
           borderRadius: '32px',
           padding: '32px',
-          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.25)',
-          border: '1px solid rgba(158, 122, 255, 0.2)',
+          boxShadow: '0 20px 50px rgba(159, 43, 104, 0.3)',
+          border: '1px solid rgba(255, 153, 0, 0.3)',
           overflow: 'hidden',
         }}
       >
-        {/* Background Ambient Glow Orbs */}
+        {/* Glowing Aam Mango Radial Orbs */}
         <div
           style={{
             position: 'absolute',
-            top: '-100px',
-            left: '20%',
-            width: '400px',
-            height: '400px',
+            top: '-120px',
+            right: '-80px',
+            width: '450px',
+            height: '450px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(118,87,246,0.25) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(255,153,0,0.35) 0%, transparent 70%)',
             pointerEvents: 'none',
           }}
         />
         <div
           style={{
             position: 'absolute',
-            bottom: '-100px',
-            right: '10%',
-            width: '400px',
-            height: '400px',
+            bottom: '-120px',
+            left: '-80px',
+            width: '450px',
+            height: '450px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(216,58,115,0.2) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(118,87,246,0.3) 0%, transparent 70%)',
             pointerEvents: 'none',
           }}
         />
@@ -207,12 +206,12 @@ export default function AgentsView() {
         <div style={{ marginBottom: '36px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Zap size={18} color="#9E7AFF" />
+              <Zap size={18} color="#FF9900" />
               <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: 'white' }}>
                 Multi-Agent Orchestration Sequence
               </h3>
             </div>
-            <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)', background: 'rgba(255,255,255,0.08)', padding: '4px 12px', borderRadius: '9999px' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FF9900', background: 'rgba(255,153,0,0.2)', padding: '4px 12px', borderRadius: '9999px', border: '1px solid rgba(255,153,0,0.3)' }}>
               Sequential DAG Execution
             </span>
           </div>
@@ -224,20 +223,21 @@ export default function AgentsView() {
                   style={{
                     padding: '14px 18px',
                     borderRadius: '20px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    backdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    background: 'rgba(255, 255, 255, 0.15)',
+                    backdropFilter: 'blur(16px)',
+                    border: '1px solid rgba(255, 255, 255, 0.25)',
                     textAlign: 'center',
                     minWidth: '130px',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
                   }}
                 >
                   <div style={{ fontSize: '2rem', marginBottom: '4px' }}>{agent.avatar}</div>
                   <div style={{ fontWeight: 700, fontSize: '0.875rem', color: 'white' }}>{agent.name}</div>
-                  <div style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>{agent.role.split(' ')[0]}</div>
+                  <div style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.7)', marginTop: '2px', fontWeight: 600 }}>{agent.role.split(' ')[0]}</div>
                 </div>
 
                 {i < AGENTS_LIST.length - 1 && (
-                  <div style={{ color: '#9E7AFF', fontWeight: 800, fontSize: '1.25rem' }}>➔</div>
+                  <div style={{ color: '#FF9900', fontWeight: 800, fontSize: '1.25rem' }}>➔</div>
                 )}
               </div>
             ))}
@@ -246,8 +246,8 @@ export default function AgentsView() {
 
         {/* SECTION 2: Interactive Agent Cards (HOVER HERE to trigger Waving 👋 & Tools Drawer) */}
         <div>
-          <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '16px' }}>
-            Hover directly over any card below to greet agent 👋
+          <div style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'rgba(255,255,255,0.9)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '16px' }}>
+            Hover directly over any agent card below to greet 👋
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(330px, 1fr))', gap: '20px' }}>
@@ -261,11 +261,11 @@ export default function AgentsView() {
                   whileHover={{ y: -6 }}
                   style={{
                     padding: '24px',
-                    background: isHovered ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)',
-                    backdropFilter: 'blur(16px)',
+                    background: isHovered ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.12)',
+                    backdropFilter: 'blur(20px)',
                     borderRadius: '24px',
-                    border: `1.5px solid ${isHovered ? agent.color : 'rgba(255, 255, 255, 0.12)'}`,
-                    boxShadow: isHovered ? `0 16px 40px ${agent.glowColor}` : '0 4px 20px rgba(0,0,0,0.2)',
+                    border: `1.5px solid ${isHovered ? '#FF9900' : 'rgba(255, 255, 255, 0.2)'}`,
+                    boxShadow: isHovered ? '0 16px 40px rgba(255, 153, 0, 0.35)' : '0 6px 24px rgba(0,0,0,0.15)',
                     transition: 'all 0.25s ease',
                     position: 'relative',
                     cursor: 'pointer',
@@ -280,12 +280,12 @@ export default function AgentsView() {
                             width: 54,
                             height: 54,
                             borderRadius: '16px',
-                            background: agent.lightColor,
+                            background: 'white',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             fontSize: '2.25rem',
-                            border: `1px solid ${agent.color}`,
+                            boxShadow: '0 4px 14px rgba(0,0,0,0.15)',
                           }}
                         >
                           {agent.avatar}
@@ -313,7 +313,7 @@ export default function AgentsView() {
 
                       <div>
                         <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'white' }}>{agent.name}</h3>
-                        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: agent.color }}>{agent.role}</div>
+                        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FF9900' }}>{agent.role}</div>
                       </div>
                     </div>
 
@@ -323,16 +323,16 @@ export default function AgentsView() {
                         fontWeight: 700,
                         padding: '4px 10px',
                         borderRadius: '9999px',
-                        background: agent.lightColor,
-                        color: agent.color,
-                        border: `1px solid ${agent.color}40`,
+                        background: 'rgba(255,255,255,0.2)',
+                        color: 'white',
+                        border: '1px solid rgba(255,255,255,0.3)',
                       }}
                     >
                       {agent.avgLatency}
                     </span>
                   </div>
 
-                  <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.5, marginBottom: '16px' }}>
+                  <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.9)', lineHeight: 1.5, marginBottom: '16px' }}>
                     {agent.desc}
                   </p>
 
@@ -345,15 +345,15 @@ export default function AgentsView() {
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
                         style={{
-                          background: 'rgba(0, 0, 0, 0.4)',
-                          border: `1px solid ${agent.color}80`,
+                          background: 'rgba(31, 8, 23, 0.75)',
+                          border: '1px solid rgba(255, 153, 0, 0.5)',
                           borderRadius: '16px',
                           padding: '16px',
                           overflow: 'hidden',
                           marginTop: '12px',
                         }}
                       >
-                        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: agent.color, display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+                        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#FF9900', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
                           👋 &quot;Hi! I am {agent.name}. My active tools & telemetry:&quot;
                         </div>
 
@@ -366,11 +366,10 @@ export default function AgentsView() {
                                 fontSize: '0.6875rem',
                                 fontFamily: 'monospace',
                                 fontWeight: 600,
-                                background: 'rgba(255,255,255,0.1)',
-                                color: 'white',
+                                background: 'white',
+                                color: '#1F0817',
                                 padding: '3px 8px',
                                 borderRadius: '6px',
-                                border: '1px solid rgba(255,255,255,0.15)',
                               }}
                             >
                               🛠️ {tool}
@@ -383,11 +382,11 @@ export default function AgentsView() {
                           style={{
                             fontSize: '0.75rem',
                             fontStyle: 'italic',
-                            color: 'rgba(255,255,255,0.9)',
-                            background: 'rgba(255,255,255,0.05)',
+                            color: 'white',
+                            background: 'rgba(255,255,255,0.1)',
                             padding: '10px 12px',
                             borderRadius: '10px',
-                            borderLeft: `3px solid ${agent.color}`,
+                            borderLeft: '3px solid #FF9900',
                           }}
                         >
                           {agent.sampleReasoning}

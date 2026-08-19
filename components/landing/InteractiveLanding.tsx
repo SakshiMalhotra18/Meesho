@@ -182,13 +182,13 @@ export default function InteractiveLanding() {
             style={{
               width: 32,
               height: 32,
-              background: '#7657F6',
+              background: '#9F2B68',
               borderRadius: '10px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: 'white',
-              boxShadow: '0 4px 12px rgba(118, 87, 246, 0.3)',
+              boxShadow: '0 4px 12px rgba(159, 43, 104, 0.3)',
             }}
           >
             <Zap size={18} strokeWidth={2.5} />
@@ -201,8 +201,8 @@ export default function InteractiveLanding() {
               style={{
                 fontSize: '0.625rem',
                 fontWeight: 700,
-                color: '#7657F6',
-                background: '#EEE9FF',
+                color: '#9F2B68',
+                background: '#F8EBF3',
                 padding: '2px 8px',
                 borderRadius: '9999px',
                 textTransform: 'uppercase',
@@ -234,7 +234,7 @@ export default function InteractiveLanding() {
             href="/cases/MR-39281"
             className="btn"
             style={{
-              background: '#7657F6',
+              background: '#9F2B68',
               color: 'white',
               borderRadius: '9999px',
               padding: '6px 18px',
@@ -244,7 +244,7 @@ export default function InteractiveLanding() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              boxShadow: '0 4px 12px rgba(118,87,246,0.3)',
+              boxShadow: '0 4px 12px rgba(159, 43, 104,0.3)',
             }}
           >
             Start Investigation <ArrowRight size={13} />
@@ -333,7 +333,7 @@ export default function InteractiveLanding() {
               <div style={{ fontSize: '0.75rem', color: '#20A176', fontWeight: 600 }}>Surat • 642g Sealed</div>
             </div>
 
-            <div style={{ color: '#7657F6', fontWeight: 'bold', fontSize: '1.25rem' }}>➔</div>
+            <div style={{ color: '#9F2B68', fontWeight: 'bold', fontSize: '1.25rem' }}>➔</div>
 
             <div style={{ textAlign: 'center', padding: '12px', background: '#FEF4E5', border: '1px solid #F2A63B', borderRadius: '16px' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '4px' }}>🛵</div>
@@ -341,7 +341,7 @@ export default function InteractiveLanding() {
               <div style={{ fontSize: '0.75rem', color: '#D94B52', fontWeight: 700 }}>Jaipur Hub (-131g)</div>
             </div>
 
-            <div style={{ color: '#7657F6', fontWeight: 'bold', fontSize: '1.25rem' }}>➔</div>
+            <div style={{ color: '#9F2B68', fontWeight: 'bold', fontSize: '1.25rem' }}>➔</div>
 
             <div style={{ textAlign: 'center', padding: '12px', background: '#F7F6F2', borderRadius: '16px' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '4px' }}>🛍️</div>
@@ -453,7 +453,7 @@ export default function InteractiveLanding() {
                 <path
                   d="M 120 160 Q 380 70, 650 220 T 880 140"
                   fill="none"
-                  stroke="#7657F6"
+                  stroke="#9F2B68"
                   strokeWidth="5"
                   strokeDasharray="1000"
                   strokeDashoffset={1000 - trackProgress * 1000}
@@ -473,14 +473,14 @@ export default function InteractiveLanding() {
               >
                 <div
                   style={{
-                    background: '#7657F6',
+                    background: '#9F2B68',
                     color: 'white',
                     borderRadius: '9999px',
                     padding: '8px 14px',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
-                    boxShadow: '0 0 24px rgba(118,87,246,0.9)',
+                    boxShadow: '0 0 24px rgba(159, 43, 104,0.9)',
                     border: '2px solid white',
                   }}
                 >
@@ -530,7 +530,7 @@ export default function InteractiveLanding() {
                         height: isSelected ? '44px' : '34px',
                         borderRadius: '50%',
                         background: hub.status === 'anomaly' ? '#D94B52' : hub.status === 'dispatch' ? '#20A176' : '#FFFFFF',
-                        border: `3px solid ${isSelected ? '#7657F6' : hub.status === 'anomaly' ? '#D94B52' : '#FFFFFF'}`,
+                        border: `3px solid ${isSelected ? '#9F2B68' : hub.status === 'anomaly' ? '#D94B52' : '#FFFFFF'}`,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -548,7 +548,7 @@ export default function InteractiveLanding() {
                         fontSize: '0.75rem',
                         fontWeight: 700,
                         color: isSelected ? '#FFFFFF' : 'rgba(255,255,255,0.8)',
-                        background: isSelected ? '#7657F6' : 'rgba(0,0,0,0.6)',
+                        background: isSelected ? '#9F2B68' : 'rgba(0,0,0,0.6)',
                         padding: '3px 10px',
                         borderRadius: '6px',
                         whiteSpace: 'nowrap',
@@ -588,7 +588,7 @@ export default function InteractiveLanding() {
                         textTransform: 'uppercase',
                         padding: '3px 10px',
                         borderRadius: '9999px',
-                        background: selectedHub.status === 'anomaly' ? '#FCE9EA' : selectedHub.status === 'dispatch' ? '#E6F7F2' : '#EEE9FF',
+                        background: selectedHub.status === 'anomaly' ? '#FCE9EA' : selectedHub.status === 'dispatch' ? '#E6F7F2' : '#F8EBF3',
                         color: selectedHub.status === 'anomaly' ? '#D94B52' : selectedHub.status === 'dispatch' ? '#178564' : '#5E43D4',
                       }}
                     >
@@ -632,7 +632,7 @@ export default function InteractiveLanding() {
                   <div style={{ fontSize: '0.75rem', color: '#6D6964' }}>
                     Tamper Tape: <strong>{selectedHub.sealStatus}</strong>
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: '#7657F6', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#9F2B68', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <Camera size={12} /> {selectedHub.cctvStatus}
                   </div>
                 </div>
@@ -675,7 +675,7 @@ export default function InteractiveLanding() {
               href="/cases/MR-39281"
               className="btn"
               style={{
-                background: '#7657F6',
+                background: '#9F2B68',
                 color: 'white',
                 borderRadius: '9999px',
                 padding: '14px 32px',
@@ -685,7 +685,7 @@ export default function InteractiveLanding() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                boxShadow: '0 8px 24px rgba(118,87,246,0.35)',
+                boxShadow: '0 8px 24px rgba(159, 43, 104,0.35)',
               }}
             >
               Inspect Case MR-39281 <ArrowRight size={16} />
@@ -717,3 +717,4 @@ export default function InteractiveLanding() {
     </div>
   );
 }
+
