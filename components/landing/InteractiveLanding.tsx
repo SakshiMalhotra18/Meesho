@@ -178,7 +178,7 @@ export default function InteractiveLanding() {
           borderRadius: '9999px',
           padding: '8px 16px 8px 20px',
           display: 'flex',
-          justify: 'space-between',
+          justifyContent: 'space-between',
           alignItems: 'center',
           zIndex: 1000,
           boxShadow: '0 8px 32px rgba(24, 24, 23, 0.08)',
