@@ -35,15 +35,37 @@ export default function ControlTowerView() {
             pointerEvents: 'none',
           }}
         />
-        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-          Marketplace Operations
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+          <div>
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              Marketplace Operations
+            </div>
+            <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em', color: 'white', margin: '4px 0 4px' }}>
+              Control Tower
+            </h1>
+            <p style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.85)' }}>
+              Real-time overview of dispute investigations, scale telemetry, and multi-agent execution.
+            </p>
+          </div>
+          <div
+            style={{
+              padding: '8px 16px',
+              borderRadius: '9999px',
+              background: 'rgba(255,255,255,0.18)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              color: 'white',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+            }}
+          >
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#5BFFA3', boxShadow: '0 0 10px #5BFFA3' }} />
+            5 AGENTS ONLINE • LIVE STREAM ACTIVE
+          </div>
         </div>
-        <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em', color: 'white', margin: '4px 0 8px' }}>
-          Control Tower
-        </h1>
-        <p style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.8)' }}>
-          Real-time overview of all dispute investigations and AI agent activity.
-        </p>
       </div>
 
       {/* Metrics Row */}
@@ -60,6 +82,9 @@ export default function ControlTowerView() {
           <div style={{ fontSize: '0.75rem', color: 'var(--color-text-tertiary)', marginTop: '4px' }}>
             Active cases needing action
           </div>
+          <div style={{ marginTop: '12px', height: '4px', background: '#F8EBF3', borderRadius: '2px', overflow: 'hidden' }}>
+            <div style={{ width: '70%', height: '100%', background: 'var(--color-jamuni)', borderRadius: '2px' }} />
+          </div>
         </div>
 
         {/* Human Approval */}
@@ -73,6 +98,9 @@ export default function ControlTowerView() {
           </div>
           <div style={{ fontSize: '0.75rem', color: 'var(--color-text-tertiary)', marginTop: '4px' }}>
             Amber & Red tier cases
+          </div>
+          <div style={{ marginTop: '12px', height: '4px', background: '#FFF4E5', borderRadius: '2px', overflow: 'hidden' }}>
+            <div style={{ width: '40%', height: '100%', background: '#FF9900', borderRadius: '2px' }} />
           </div>
         </div>
 
@@ -88,6 +116,9 @@ export default function ControlTowerView() {
           <div style={{ fontSize: '0.75rem', color: 'var(--color-text-tertiary)', marginTop: '4px' }}>
             Fraud & severe logistics flags
           </div>
+          <div style={{ marginTop: '12px', height: '4px', background: '#FCE9EA', borderRadius: '2px', overflow: 'hidden' }}>
+            <div style={{ width: '25%', height: '100%', background: '#D94B52', borderRadius: '2px' }} />
+          </div>
         </div>
 
         {/* Auto-Resolved */}
@@ -101,6 +132,9 @@ export default function ControlTowerView() {
           </div>
           <div style={{ fontSize: '0.75rem', color: 'var(--color-text-tertiary)', marginTop: '4px' }}>
             Green tier high confidence
+          </div>
+          <div style={{ marginTop: '12px', height: '4px', background: '#E6F7F2', borderRadius: '2px', overflow: 'hidden' }}>
+            <div style={{ width: '85%', height: '100%', background: '#20A176', borderRadius: '2px' }} />
           </div>
         </div>
       </div>
@@ -169,7 +203,7 @@ export default function ControlTowerView() {
           </div>
         </div>
 
-        {/* Live Agent Activity */}
+        {/* Live Agent Activity Feed */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div
             className="card"
@@ -180,9 +214,12 @@ export default function ControlTowerView() {
               border: '1px solid rgba(159,43,104,0.12)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-              <Zap size={16} color="#FF9900" />
-              <h3 style={{ fontSize: '0.9375rem', fontWeight: 700 }}>Live Agent Activity</h3>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Zap size={16} color="#FF9900" />
+                <h3 style={{ fontSize: '0.9375rem', fontWeight: 700 }}>Live Agent Activity</h3>
+              </div>
+              <span style={{ fontSize: '0.6875rem', color: '#20A176', fontWeight: 700 }}>● REALTIME</span>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.8125rem' }}>
               <div style={{ borderLeft: '3px solid var(--color-jamuni)', paddingLeft: '12px', paddingTop: '2px', paddingBottom: '2px' }}>
@@ -201,6 +238,12 @@ export default function ControlTowerView() {
                 <div style={{ fontWeight: 700, color: '#D47E00' }}>Kavach — Risk Agent</div>
                 <div style={{ color: 'var(--color-text-secondary)', marginTop: '2px' }}>Assessed customer Ananya (12% risk) & seller (8% risk)</div>
                 <div style={{ fontSize: '0.6875rem', color: 'var(--color-text-tertiary)', marginTop: '2px' }}>4 mins ago</div>
+              </div>
+
+              <div style={{ borderLeft: '3px solid #20A176', paddingLeft: '12px' }}>
+                <div style={{ fontWeight: 700, color: '#20A176' }}>Samadhan — Resolution Synthesizer</div>
+                <div style={{ color: 'var(--color-text-secondary)', marginTop: '2px' }}>Formulated Policy P-014 outcome: Refund ₹1,299 + Protect Seller</div>
+                <div style={{ fontSize: '0.6875rem', color: 'var(--color-text-tertiary)', marginTop: '2px' }}>5 mins ago</div>
               </div>
             </div>
           </div>

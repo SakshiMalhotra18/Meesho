@@ -51,8 +51,8 @@ const HUBS_DATA: HubDetail[] = [
     operatorId: 'SELL-2291',
     sealStatus: 'Intact (Tamper Tape #SR-889)',
     cctvStatus: 'Verified (Camera #04)',
-    x: 12,
-    y: 50,
+    x: 18,
+    y: 65,
     description: 'Seller Rakesh Patel packed women\'s embroidered blue kurta. Package sealed and weighed on calibrated scale.',
     telemetry: [
       { label: 'Dispatch Weight', value: '642 g' },
@@ -73,8 +73,8 @@ const HUBS_DATA: HubDetail[] = [
     operatorId: 'OP-4412',
     sealStatus: 'Intact',
     cctvStatus: 'Normal Pass-through',
-    x: 38,
-    y: 30,
+    x: 34,
+    y: 48,
     description: 'Parcel scanned at sortation belt #3. Package weight 642g matches seller dispatch telemetry perfectly.',
     telemetry: [
       { label: 'Inbound Scan', value: '642 g' },
@@ -95,8 +95,8 @@ const HUBS_DATA: HubDetail[] = [
     operatorId: 'OP-9901',
     sealStatus: 'Altered / Re-taped',
     cctvStatus: 'Under Review',
-    x: 65,
-    y: 70,
+    x: 58,
+    y: 36,
     description: 'CRITICAL ANOMALY: Weight dropped by 131g during inter-hub transfer. Outer packaging shows re-sealing signs.',
     telemetry: [
       { label: 'Previous Scan', value: '642 g' },
@@ -117,8 +117,8 @@ const HUBS_DATA: HubDetail[] = [
     operatorId: 'RIDER-IMRAN',
     sealStatus: 'Delivered Sealed',
     cctvStatus: 'OTP Verified 8742',
-    x: 88,
-    y: 45,
+    x: 82,
+    y: 22,
     description: 'Delivery partner Imran completed doorstep delivery. Customer Ananya received package and reported wrong item.',
     telemetry: [
       { label: 'Delivery Time', value: '12:41 PM' },
@@ -130,29 +130,34 @@ const HUBS_DATA: HubDetail[] = [
 ];
 
 export default function InteractiveLanding() {
-  const [trackProgress, setTrackProgress] = useState(0.12); // 0 to 1
+  const [trackProgress, setTrackProgress] = useState(0.18); // 0 to 1
   const [selectedHub, setSelectedHub] = useState<HubDetail>(HUBS_DATA[0]);
   const [isAutoPlaying, setIsAutoPlaying] = useState(false);
   const mapRef = useRef<HTMLDivElement>(null);
 
+  // Auto-drive simulation timer
+  useState(() => {
+    // initial mount
+  });
+
   // Mouse Movement tracking over map canvas!
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!mapRef.current) return;
+    if (isAutoPlaying || !mapRef.current) return;
     const rect = mapRef.current.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const progress = Math.min(1, Math.max(0, mouseX / rect.width));
     setTrackProgress(progress);
 
     // Auto select nearest hub based on mouse position
-    if (progress < 0.25) setSelectedHub(HUBS_DATA[0]);
-    else if (progress < 0.50) setSelectedHub(HUBS_DATA[1]);
-    else if (progress < 0.75) setSelectedHub(HUBS_DATA[2]);
+    if (progress < 0.26) setSelectedHub(HUBS_DATA[0]);
+    else if (progress < 0.46) setSelectedHub(HUBS_DATA[1]);
+    else if (progress < 0.70) setSelectedHub(HUBS_DATA[2]);
     else setSelectedHub(HUBS_DATA[3]);
   };
 
-  // Compute Scooter Position
-  const scooterX = Math.min(90, Math.max(10, 10 + trackProgress * 80));
-  const scooterY = 50 + Math.sin(trackProgress * Math.PI * 2) * 16;
+  // Compute Scooter Position along route
+  const scooterX = Math.min(85, Math.max(15, 18 + trackProgress * 64));
+  const scooterY = 65 - trackProgress * 43 + Math.sin(trackProgress * Math.PI) * 4;
 
   return (
     <div style={{ background: '#F7F6F2', color: '#181817', overflowX: 'hidden', minHeight: '100vh' }}>
@@ -463,14 +468,14 @@ export default function InteractiveLanding() {
               {/* Vector Dotted Connection Curve */}
               <svg width="100%" height="100%" viewBox="0 0 1000 320" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0 }}>
                 <path
-                  d="M 120 160 Q 380 70, 650 220 T 880 140"
+                  d="M 180 208 Q 340 153, 580 115 T 820 70"
                   fill="none"
-                  stroke="rgba(159,43,104,0.2)"
+                  stroke="rgba(159,43,104,0.25)"
                   strokeWidth="4"
                   strokeDasharray="8 8"
                 />
                 <path
-                  d="M 120 160 Q 380 70, 650 220 T 880 140"
+                  d="M 180 208 Q 340 153, 580 115 T 820 70"
                   fill="none"
                   stroke="#9F2B68"
                   strokeWidth="5"
@@ -657,6 +662,30 @@ export default function InteractiveLanding() {
                 </div>
               </motion.div>
             </AnimatePresence>
+          </div>
+
+          {/* Live Telemetry Ticker Marquee */}
+          <div
+            style={{
+              marginTop: '24px',
+              padding: '12px 18px',
+              borderRadius: '16px',
+              background: 'linear-gradient(135deg, #4A0D36 0%, #7A184D 100%)',
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 4px 16px rgba(159,43,104,0.2)',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', fontWeight: 800, background: '#FF9900', color: 'white', padding: '3px 10px', borderRadius: '9999px', flexShrink: 0 }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'white', animation: 'pulse 1.5s infinite' }} />
+              LIVE STREAM
+            </div>
+            <div style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.9)', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontWeight: 500 }}>
+              ⚡ <strong>MR-39281 Telemetry:</strong> Surat Dispatch 642g (Pass) → AHM Belt-03 642g (Pass) → <span style={{ color: '#FF9900', fontWeight: 700 }}>Jaipur Scan 511g (⚠️ -131g Drop)</span> → Delhi Doorstep OTP 8742 (Verified)
+            </div>
           </div>
         </div>
       </section>
