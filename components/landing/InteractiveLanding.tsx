@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -8,21 +8,16 @@ import {
   Zap,
   CheckCircle2,
   AlertTriangle,
-  ShieldAlert,
   FileText,
-  Bot,
-  Scale,
-  ChevronDown,
   Truck,
   UserCheck,
   Building2,
   Camera,
-  ShieldCheck,
-  Layers,
   Sparkles,
-  MapPin,
-  Activity,
-  ArrowUpRight,
+  ChevronDown,
+  MousePointer,
+  Play,
+  RotateCcw,
 } from 'lucide-react';
 
 interface HubDetail {
@@ -40,7 +35,6 @@ interface HubDetail {
   x: number; // percentage across curve
   y: number;
   description: string;
-  evidencePhoto?: string;
   telemetry: { label: string; value: string; alert?: boolean }[];
 }
 
@@ -136,34 +130,33 @@ const HUBS_DATA: HubDetail[] = [
 ];
 
 export default function InteractiveLanding() {
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [trackProgress, setTrackProgress] = useState(0.12); // 0 to 1
   const [selectedHub, setSelectedHub] = useState<HubDetail>(HUBS_DATA[0]);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
+  const mapRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const currentScroll = window.scrollY;
-      const progress = Math.min(1, Math.max(0, currentScroll / (totalScroll || 1)));
-      setScrollProgress(progress);
+  // Mouse Movement tracking over map canvas!
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!mapRef.current) return;
+    const rect = mapRef.current.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const progress = Math.min(1, Math.max(0, mouseX / rect.width));
+    setTrackProgress(progress);
 
-      // Auto cycle active hub based on scroll position
-      if (progress < 0.25) setSelectedHub(HUBS_DATA[0]);
-      else if (progress < 0.50) setSelectedHub(HUBS_DATA[1]);
-      else if (progress < 0.75) setSelectedHub(HUBS_DATA[2]);
-      else setSelectedHub(HUBS_DATA[3]);
-    };
+    // Auto select nearest hub based on mouse position
+    if (progress < 0.25) setSelectedHub(HUBS_DATA[0]);
+    else if (progress < 0.50) setSelectedHub(HUBS_DATA[1]);
+    else if (progress < 0.75) setSelectedHub(HUBS_DATA[2]);
+    else setSelectedHub(HUBS_DATA[3]);
+  };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Compute position of scooter along the curve based on scroll progress
-  const scooterX = Math.min(90, Math.max(10, 10 + scrollProgress * 80));
-  const scooterY = 50 + Math.sin(scrollProgress * Math.PI * 2) * 16;
+  // Compute Scooter Position
+  const scooterX = Math.min(90, Math.max(10, 10 + trackProgress * 80));
+  const scooterY = 50 + Math.sin(trackProgress * Math.PI * 2) * 16;
 
   return (
     <div style={{ background: '#F7F6F2', color: '#181817', overflowX: 'hidden', minHeight: '100vh' }}>
-      {/* Fixed Responsive Top Header Pill */}
+      {/* Top Header Pill Navbar */}
       <header
         style={{
           position: 'fixed',
@@ -172,7 +165,7 @@ export default function InteractiveLanding() {
           transform: 'translateX(-50%)',
           width: 'calc(100% - 32px)',
           maxWidth: '920px',
-          background: 'rgba(255, 255, 255, 0.92)',
+          background: 'rgba(255, 255, 255, 0.94)',
           backdropFilter: 'blur(16px)',
           border: '1px solid rgba(24, 24, 23, 0.12)',
           borderRadius: '9999px',
@@ -184,7 +177,6 @@ export default function InteractiveLanding() {
           boxShadow: '0 8px 32px rgba(24, 24, 23, 0.08)',
         }}
       >
-        {/* Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           <div
             style={{
@@ -214,7 +206,6 @@ export default function InteractiveLanding() {
                 padding: '2px 8px',
                 borderRadius: '9999px',
                 textTransform: 'uppercase',
-                letterSpacing: '0.04em',
               }}
             >
               Prototype
@@ -222,7 +213,6 @@ export default function InteractiveLanding() {
           </div>
         </Link>
 
-        {/* Action Buttons */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
           <Link
             href="/control-tower"
@@ -236,7 +226,6 @@ export default function InteractiveLanding() {
               fontSize: '0.8125rem',
               fontWeight: 500,
               textDecoration: 'none',
-              flexShrink: 0,
             }}
           >
             Control Tower
@@ -256,7 +245,6 @@ export default function InteractiveLanding() {
               alignItems: 'center',
               gap: '6px',
               boxShadow: '0 4px 12px rgba(118,87,246,0.3)',
-              flexShrink: 0,
             }}
           >
             Start Investigation <ArrowRight size={13} />
@@ -264,36 +252,21 @@ export default function InteractiveLanding() {
         </div>
       </header>
 
-      {/* Top Scroll Indicator Line */}
-      <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          height: '4px',
-          background: 'linear-gradient(90deg, #7657F6, #D83A73)',
-          width: `${scrollProgress * 100}%`,
-          zIndex: 1001,
-          transition: 'width 0.1s linear',
-        }}
-      />
-
       {/* HERO SECTION */}
       <section
         style={{
-          minHeight: '85vh',
+          minHeight: '80vh',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
           textAlign: 'center',
-          padding: '140px 24px 40px',
+          padding: '130px 24px 30px',
         }}
       >
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -304,8 +277,6 @@ export default function InteractiveLanding() {
             borderRadius: '9999px',
             fontSize: '0.8125rem',
             fontWeight: 700,
-            letterSpacing: '0.03em',
-            textTransform: 'uppercase',
             marginBottom: '20px',
           }}
         >
@@ -315,7 +286,7 @@ export default function InteractiveLanding() {
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ delay: 0.1 }}
           style={{
             fontFamily: 'var(--font-fraunces), Georgia, serif',
             fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
@@ -332,37 +303,30 @@ export default function InteractiveLanding() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          style={{
-            fontSize: '1.125rem',
-            color: '#6D6964',
-            maxWidth: '640px',
-            margin: '0 auto 40px',
-            lineHeight: 1.6,
-          }}
+          transition={{ delay: 0.2 }}
+          style={{ fontSize: '1.125rem', color: '#6D6964', maxWidth: '640px', margin: '0 auto 36px', lineHeight: 1.6 }}
         >
           One order. Three stories. Five AI agents. Reconstructing the ground truth behind e-commerce disputes.
         </motion.p>
 
-        {/* Hero Visual Preview Card */}
+        {/* Visual 3-Party Story Card */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
+          transition={{ delay: 0.3 }}
           style={{
             position: 'relative',
             width: '100%',
-            maxWidth: '750px',
+            maxWidth: '780px',
             background: 'white',
             border: '1px solid rgba(24, 24, 23, 0.12)',
             borderRadius: '24px',
             boxShadow: '0 12px 40px rgba(24, 24, 23, 0.08)',
-            padding: '28px',
-            margin: '0 auto 32px',
+            padding: '24px',
+            margin: '0 auto 24px',
           }}
         >
           <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1.2fr auto 1fr', gap: '16px', alignItems: 'center' }}>
-            {/* Seller */}
             <div style={{ textAlign: 'center', padding: '12px', background: '#F7F6F2', borderRadius: '16px' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '4px' }}>📦</div>
               <div style={{ fontWeight: 700, fontSize: '0.875rem' }}>Rakesh (Seller)</div>
@@ -371,7 +335,6 @@ export default function InteractiveLanding() {
 
             <div style={{ color: '#7657F6', fontWeight: 'bold', fontSize: '1.25rem' }}>➔</div>
 
-            {/* Rider & Jaipur Anomaly */}
             <div style={{ textAlign: 'center', padding: '12px', background: '#FEF4E5', border: '1px solid #F2A63B', borderRadius: '16px' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '4px' }}>🛵</div>
               <div style={{ fontWeight: 700, fontSize: '0.875rem', color: '#D4861C' }}>Imran (Transit Rider)</div>
@@ -380,7 +343,6 @@ export default function InteractiveLanding() {
 
             <div style={{ color: '#7657F6', fontWeight: 'bold', fontSize: '1.25rem' }}>➔</div>
 
-            {/* Customer */}
             <div style={{ textAlign: 'center', padding: '12px', background: '#F7F6F2', borderRadius: '16px' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '4px' }}>🛍️</div>
               <div style={{ fontWeight: 700, fontSize: '0.875rem' }}>Ananya (Customer)</div>
@@ -388,20 +350,10 @@ export default function InteractiveLanding() {
             </div>
           </div>
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', color: '#9E9990', fontSize: '0.8125rem' }}
-        >
-          <span>Scroll to drive parcel telemetry & interactive map</span>
-          <ChevronDown size={16} className="animate-bounce" />
-        </motion.div>
       </section>
 
-      {/* INTERACTIVE LOGISTICS MAP & RIGHT INSPECTION DRAWER SECTION */}
-      <section style={{ padding: '40px 24px 80px', maxWidth: '1150px', margin: '0 auto' }}>
+      {/* INTERACTIVE MOUSE-TRACKING LOGISTICS MAP & DRAWER SECTION */}
+      <section style={{ padding: '20px 24px 80px', maxWidth: '1150px', margin: '0 auto' }}>
         <div
           style={{
             background: 'white',
@@ -411,36 +363,74 @@ export default function InteractiveLanding() {
             padding: '32px',
           }}
         >
-          {/* Section Header */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
+          {/* Header */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
             <div>
-              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#4D78FF', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                Interactive Logistics Map
+              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#4D78FF', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <MousePointer size={14} /> Interactive Mouse-Drive & Live Inspector
               </div>
               <h2 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#181817', margin: '4px 0 0' }}>
-                Parcel Journey Telemetry Track
+                Move mouse over map to drive scooter & inspect hubs
               </h2>
             </div>
-            <div style={{ fontSize: '0.8125rem', color: '#6D6964', background: '#F2F1ED', padding: '6px 14px', borderRadius: '9999px', fontWeight: 500 }}>
-              💡 Click any node on map to inspect right-side live telemetry
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button
+                onClick={() => setTrackProgress(0.12)}
+                className="btn btn-sm"
+                style={{ background: '#F7F6F2', border: '1px solid rgba(24,24,23,0.15)', borderRadius: '9999px', fontSize: '0.75rem' }}
+              >
+                <RotateCcw size={12} /> Reset to Surat
+              </button>
+              <button
+                onClick={() => setTrackProgress(0.65)}
+                className="btn btn-sm"
+                style={{ background: '#FCE9EA', color: '#D94B52', border: '1px solid #D94B52', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 700 }}
+              >
+                ⚠️ Jump to Jaipur Anomaly
+              </button>
             </div>
           </div>
 
           {/* Map + Right-Side Inspection Drawer Layout */}
           <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: '24px' }}>
-            {/* Left: Animated Vector Map Canvas */}
+            {/* Left: Mouse-Tracking Animated Vector Map Canvas */}
             <div
+              ref={mapRef}
+              onMouseMove={handleMouseMove}
               style={{
                 position: 'relative',
-                height: '360px',
+                height: '380px',
                 background: 'linear-gradient(135deg, #181817 0%, #1e1b2e 100%)',
                 borderRadius: '20px',
                 overflow: 'hidden',
                 padding: '24px',
+                cursor: 'crosshair',
                 boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.5)',
               }}
             >
-              {/* Background Map Grid Pattern */}
+              {/* Mouse hover instruction badge */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '12px',
+                  left: '12px',
+                  background: 'rgba(255,255,255,0.15)',
+                  backdropFilter: 'blur(8px)',
+                  color: 'white',
+                  padding: '4px 12px',
+                  borderRadius: '9999px',
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  zIndex: 25,
+                }}
+              >
+                <MousePointer size={13} /> Hover mouse across map to steer scooter 🛵
+              </div>
+
+              {/* Background Grid Pattern */}
               <div
                 style={{
                   position: 'absolute',
@@ -466,7 +456,7 @@ export default function InteractiveLanding() {
                   stroke="#7657F6"
                   strokeWidth="5"
                   strokeDasharray="1000"
-                  strokeDashoffset={1000 - scrollProgress * 1000}
+                  strokeDashoffset={1000 - trackProgress * 1000}
                 />
               </svg>
 
@@ -478,7 +468,7 @@ export default function InteractiveLanding() {
                   top: `${scooterY}%`,
                   transform: 'translate(-50%, -50%)',
                   zIndex: 20,
-                  transition: 'all 0.1s linear',
+                  transition: 'all 0.08s ease-out',
                 }}
               >
                 <div
@@ -490,7 +480,7 @@ export default function InteractiveLanding() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
-                    boxShadow: '0 0 24px rgba(118,87,246,0.8)',
+                    boxShadow: '0 0 24px rgba(118,87,246,0.9)',
                     border: '2px solid white',
                   }}
                 >
@@ -520,7 +510,6 @@ export default function InteractiveLanding() {
                       alignItems: 'center',
                     }}
                   >
-                    {/* Pulsing ring for Jaipur Anomaly */}
                     {hub.status === 'anomaly' && (
                       <div
                         style={{
@@ -572,14 +561,14 @@ export default function InteractiveLanding() {
               })}
             </div>
 
-            {/* Right: Live Interactive Inspection Drawer */}
+            {/* Right: Live Interactive Telemetry Inspection Drawer */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedHub.id}
                 initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -15 }}
-                transition={{ duration: 0.25 }}
+                transition={{ duration: 0.2 }}
                 style={{
                   background: selectedHub.status === 'anomaly' ? '#FEF4E5' : '#F7F6F2',
                   border: `1px solid ${selectedHub.status === 'anomaly' ? '#F2A63B' : 'rgba(24, 24, 23, 0.12)'}`,
@@ -597,7 +586,6 @@ export default function InteractiveLanding() {
                         fontSize: '0.6875rem',
                         fontWeight: 700,
                         textTransform: 'uppercase',
-                        letterSpacing: '0.04em',
                         padding: '3px 10px',
                         borderRadius: '9999px',
                         background: selectedHub.status === 'anomaly' ? '#FCE9EA' : selectedHub.status === 'dispatch' ? '#E6F7F2' : '#EEE9FF',
@@ -620,7 +608,6 @@ export default function InteractiveLanding() {
                     {selectedHub.description}
                   </p>
 
-                  {/* Telemetry Grid */}
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                     {selectedHub.telemetry.map(t => (
                       <div
@@ -655,106 +642,8 @@ export default function InteractiveLanding() {
         </div>
       </section>
 
-      {/* RIDER IMRAN & ANANYA COMPLAINT DEDICATED SCENE */}
-      <section style={{ padding: '40px 24px 80px', maxWidth: '1150px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
-          {/* Delivery Partner Imran */}
-          <div className="card" style={{ padding: '28px', background: 'white', borderRadius: '24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <div style={{ width: 44, height: 44, borderRadius: '50%', background: '#EBF0FF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
-                🛵
-              </div>
-              <div>
-                <span className="badge badge-logistics">Delivery Partner</span>
-                <h3 style={{ fontSize: '1.125rem', fontWeight: 700, marginTop: '2px' }}>Imran (Last-Mile Courier)</h3>
-              </div>
-            </div>
-            <p style={{ fontSize: '0.875rem', color: '#6D6964', lineHeight: 1.6, marginBottom: '16px' }}>
-              Completed doorstep delivery to customer Ananya at 12:41 PM. OTP 8742 was logged. Package seal was delivered intact.
-            </p>
-            <div style={{ padding: '10px 14px', background: '#F7F6F2', borderRadius: '10px', fontSize: '0.8125rem', color: '#181817', fontWeight: 600 }}>
-              OTP 8742 Verified • Delivery Completed
-            </div>
-          </div>
-
-          {/* Customer Ananya */}
-          <div className="card" style={{ padding: '28px', background: 'white', borderRadius: '24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <div style={{ width: 44, height: 44, borderRadius: '50%', background: '#FCE9F1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
-                👩‍🦱
-              </div>
-              <div>
-                <span className="badge badge-accent">Customer Dispute</span>
-                <h3 style={{ fontSize: '1.125rem', fontWeight: 700, marginTop: '2px' }}>Ananya Sharma</h3>
-              </div>
-            </div>
-            <div style={{ padding: '14px', background: '#FCE9EA', border: '1px solid #D94B52', borderRadius: '12px', fontSize: '0.875rem', color: '#B53940', fontWeight: 600, lineHeight: 1.5 }}>
-              &quot;I received a plain white dupatta instead of the blue embroidered kurta I ordered. The outer package was intact.&quot;
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* MIRA & 5 AGENTS RECONSTRUCTION SECTION */}
-      <section style={{ padding: '60px 24px 100px', maxWidth: '1150px', margin: '0 auto', textAlign: 'center' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#EEE9FF', color: '#5E43D4', padding: '6px 16px', borderRadius: '9999px', fontSize: '0.8125rem', fontWeight: 700, marginBottom: '16px' }}>
-          <Zap size={14} /> Mira AI Orchestration Layer
-        </div>
-
-        <h2 style={{ fontFamily: 'var(--font-fraunces), Georgia, serif', fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 400, marginBottom: '16px' }}>
-          5 Agents Reconstruct the Ground Truth
-        </h2>
-
-        <p style={{ fontSize: '1rem', color: '#6D6964', maxWidth: '600px', margin: '0 auto 48px' }}>
-          Specialized AI agents synthesize evidence, package weight telemetry, party risk profiles, and policies.
-        </p>
-
-        {/* 5 Agents Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', textAlign: 'left' }}>
-          <div className="card" style={{ padding: '20px', background: 'white', borderRadius: '16px', borderTop: '4px solid #20A176' }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#20A176', textTransform: 'uppercase' }}>Tara • Evidence</div>
-            <div style={{ fontWeight: 700, fontSize: '0.9375rem', margin: '6px 0' }}>Product Mismatch: 96%</div>
-            <div style={{ fontSize: '0.8125rem', color: '#6D6964' }}>
-              Dispatch image matches SKU. Return photo confirms wrong product.
-            </div>
-          </div>
-
-          <div className="card" style={{ padding: '20px', background: 'white', borderRadius: '16px', borderTop: '4px solid #4D78FF' }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#4D78FF', textTransform: 'uppercase' }}>Raahi • Logistics</div>
-            <div style={{ fontWeight: 700, fontSize: '0.9375rem', margin: '6px 0' }}>131g Weight Loss</div>
-            <div style={{ fontSize: '0.8125rem', color: '#6D6964' }}>
-              Anomaly localized to Jaipur Hub transfer segment.
-            </div>
-          </div>
-
-          <div className="card" style={{ padding: '20px', background: 'white', borderRadius: '16px', borderTop: '4px solid #F2A63B' }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#F2A63B', textTransform: 'uppercase' }}>Kavach • Risk</div>
-            <div style={{ fontWeight: 700, fontSize: '0.9375rem', margin: '6px 0' }}>Logistics Risk: 84%</div>
-            <div style={{ fontSize: '0.8125rem', color: '#6D6964' }}>
-              Customer risk 12% (low), Seller risk 8% (low).
-            </div>
-          </div>
-
-          <div className="card" style={{ padding: '20px', background: 'white', borderRadius: '16px', borderTop: '4px solid #D94B52' }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#D94B52', textTransform: 'uppercase' }}>Niti • Policy</div>
-            <div style={{ fontWeight: 700, fontSize: '0.9375rem', margin: '6px 0' }}>Policy P-014 Applied</div>
-            <div style={{ fontSize: '0.8125rem', color: '#6D6964' }}>
-              Wrong Product — Logistics Responsible policy matched.
-            </div>
-          </div>
-
-          <div className="card" style={{ padding: '20px', background: 'white', borderRadius: '16px', borderTop: '4px solid #7657F6' }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#7657F6', textTransform: 'uppercase' }}>Samadhan • Resolution</div>
-            <div style={{ fontWeight: 700, fontSize: '0.9375rem', margin: '6px 0' }}>Confidence: 94%</div>
-            <div style={{ fontSize: '0.8125rem', color: '#6D6964' }}>
-              Refund Customer • Protect Seller • Flag Jaipur Hub.
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FINAL RESOLUTION CTA */}
-      <section style={{ padding: '100px 24px', background: 'white', borderTop: '1px solid rgba(24,24,23,0.1)', textAlign: 'center' }}>
+      <section style={{ padding: '80px 24px 100px', background: 'white', borderTop: '1px solid rgba(24,24,23,0.1)', textAlign: 'center' }}>
         <div style={{ maxWidth: '650px', margin: '0 auto' }}>
           <div
             style={{
@@ -777,7 +666,7 @@ export default function InteractiveLanding() {
             94% Confidence Resolution
           </h2>
 
-          <p style={{ fontSize: '1.0625rem', color: '#6D6964', marginBottom: '40px', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '1.0625rem', color: '#6D6964', marginBottom: '36px', lineHeight: 1.6 }}>
             Customer Ananya refunded (₹1,299) • Seller Rakesh payout protected • Jaipur Hub segment flagged for investigation.
           </p>
 
