@@ -335,11 +335,49 @@ export const SEED_CASES: Case[] = [
     dispatchDate: '2024-08-06T11:00:00Z',
     deliveryDate: '2024-08-09T16:20:00Z',
     returnRequestDate: '2024-08-10T09:00:00Z',
-    logisticsEvents: [],
-    packageWeights: [],
-    evidence: [],
+    logisticsEvents: [
+      { id: 'EVT-201', caseId: 'MR-41055', hub: 'Varanasi', timestamp: '2024-08-06T11:00:00Z', eventType: 'pickup', weightGrams: 912, anomaly: false },
+      { id: 'EVT-202', caseId: 'MR-41055', hub: 'Lucknow', timestamp: '2024-08-07T08:00:00Z', eventType: 'hub_arrival', weightGrams: 912, anomaly: false },
+      { id: 'EVT-203', caseId: 'MR-41055', hub: 'Jaipur', timestamp: '2024-08-09T16:20:00Z', eventType: 'delivered', weightGrams: 905, notes: 'OTP verified', anomaly: false },
+    ],
+    packageWeights: [
+      { hub: 'Varanasi', timestamp: '2024-08-06T11:00:00Z', weightGrams: 912, expectedGrams: 890, delta: 22, anomaly: false },
+      { hub: 'Lucknow', timestamp: '2024-08-07T08:00:00Z', weightGrams: 912, expectedGrams: 890, delta: 22, anomaly: false },
+      { hub: 'Jaipur', timestamp: '2024-08-09T16:20:00Z', weightGrams: 905, expectedGrams: 890, delta: 15, anomaly: false },
+    ],
+    evidence: [
+      { id: 'EV-201', caseId: 'MR-41055', type: 'dispatch_image', label: 'Dispatch Photo', description: 'Seller dispatch photo shows pristine Banarasi saree with gold weave', timestamp: '2024-08-06T10:50:00Z', source: 'seller', relevanceScore: 0.96 },
+      { id: 'EV-202', caseId: 'MR-41055', type: 'return_image', label: 'Returned Item Photo', description: 'Returned saree appears to be a lower-quality synthetic material. Pattern mismatch.', timestamp: '2024-08-10T10:00:00Z', source: 'seller', relevanceScore: 0.94 },
+      { id: 'EV-203', caseId: 'MR-41055', type: 'customer_statement', label: 'Customer Statement', description: '"The saree has a manufacturing defect on the border."', timestamp: '2024-08-10T09:00:00Z', source: 'customer', relevanceScore: 0.50 },
+    ],
     agentRuns: [],
-    agentFindings: [],
+    agentFindings: [
+      {
+        agentName: 'tara',
+        agentDisplayName: 'Tara — Evidence Agent',
+        summary: 'Returned item does not match dispatched item. Pattern mismatch detected.',
+        details: [
+          { label: 'Dispatch item', value: 'Banarasi Silk Saree (authentic)', highlight: false },
+          { label: 'Returned item', value: 'Synthetic saree — pattern mismatch', highlight: true, riskLevel: 'high' },
+        ],
+        confidence: 0.89,
+        anomalies: ['Returned item pattern does not match dispatch image'],
+        timestamp: '2024-08-10T11:00:00Z',
+      },
+      {
+        agentName: 'kavach',
+        agentDisplayName: 'Kavach — Risk Agent',
+        summary: 'Customer risk critically high (81%). 3 prior fraud flags, 58% return rate.',
+        details: [
+          { label: 'Customer risk', value: '81%', highlight: true, riskLevel: 'high' },
+          { label: 'Customer return rate', value: '58% (18/31 orders)', highlight: true, riskLevel: 'high' },
+          { label: 'Fraud flags', value: '3 prior flags', highlight: true, riskLevel: 'high' },
+        ],
+        confidence: 0.87,
+        anomalies: ['Customer has 3 prior fraud flags'],
+        timestamp: '2024-08-10T11:02:00Z',
+      },
+    ],
     resolution: {
       id: 'RES-41055',
       caseId: 'MR-41055',

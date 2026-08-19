@@ -23,12 +23,18 @@ import {
 
 export default function InvestigationView({ caseId }: { caseId: string }) {
   const caseData = getCaseById(caseId) || getCaseById('MR-39281')!;
-  const [selectedEventId, setSelectedEventId] = useState(caseData.logisticsEvents[3]?.id || caseData.logisticsEvents[0]?.id);
+  const [selectedEventId, setSelectedEventId] = useState(caseData.logisticsEvents?.[0]?.id || 'EVT-001');
   const [activeTab, setActiveTab] = useState<'evidence' | 'timeline' | 'risk'>('evidence');
   const [statusAction, setStatusAction] = useState<string | null>(null);
   const [zoomImage, setZoomImage] = useState<string | null>(null);
 
-  const selectedEvent = caseData.logisticsEvents.find(e => e.id === selectedEventId) || caseData.logisticsEvents[0];
+  const selectedEvent = caseData.logisticsEvents?.find(e => e.id === selectedEventId) || caseData.logisticsEvents?.[0] || {
+    id: 'EVT-FALLBACK',
+    hub: caseData.origin || 'Origin',
+    eventType: 'pickup',
+    weightGrams: caseData.product?.expectedWeightGrams || 620,
+    anomaly: false,
+  };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
